@@ -102,21 +102,23 @@ func TestStringMask(t *testing.T) {
 
 func TestWordSplit(t *testing.T) {
 	words := "apple,bat,cat,goodbye,hello,yellow,why"
-	/*
-		Your goal is to determine if the first element in the array can be split into two words,
-		where both words exist in the dictionary(words variable) that is provided in the second element of array.
 
-		cases need to pass:
-			[2]string{"hellocat",words} => hello,cat
-			[2]string{"catbat",words} => cat,bat
-			[2]string{"yellowapple",words} => yellow,apple
-			[2]string{"",words} => not possible
-			[2]string{"notcat",words} => not possible
-			[2]string{"bootcamprocks!",words} => not possible
-	*/
-	result := WordSplit([2]string{"hellocat", words})
+	m := make(map[string]string)
+	m["hellocat"] = "hello,cat"
+	m["catbat"] = "cat,bat"
+	m["yellowapple"] = "yellow,apple"
+	m[",words"] = "not possible"
+	m["notcat"] = "not possible"
+	m["bootcamprocks!"] = "not possible"
 
-	assert.Equal(t, "hello,cat", result)
+	for k, v := range m {
+		var Arguments [2]string
+		Arguments[0] = k
+		Arguments[1] = words
+
+		result := WordSplit(Arguments)
+		assert.Equal(t, result, v)
+	}
 }
 
 func TestVariadicSet(t *testing.T) {

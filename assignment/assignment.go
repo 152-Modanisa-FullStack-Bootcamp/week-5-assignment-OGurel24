@@ -68,7 +68,16 @@ func StringMask(s string, n uint) string {
 }
 
 func WordSplit(arr [2]string) string {
-	return "ggggg"
+	chars := []rune(arr[0])
+
+	for i := range chars {
+		FirstPart := arr[0][0:i]
+		SecondPart := arr[0][i:]
+		if strings.Contains(arr[1], FirstPart) && strings.Contains(arr[1], SecondPart) {
+			return fmt.Sprintf("%s,%s", FirstPart, SecondPart)
+		}
+	}
+	return "not possible"
 }
 
 func VariadicSet(i ...interface{}) []interface{} {
