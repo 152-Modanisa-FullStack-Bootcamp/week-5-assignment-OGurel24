@@ -26,24 +26,23 @@ func TestAddUint32(t *testing.T) {
 }
 
 func TestCeilNumber(t *testing.T) {
-	/*
-		Ceil the number within 0.25
-		cases need to pass:
-			42.42 => 42.50
-			42 => 42
-			42.01 => 42.25
-			42.24 => 42.25
-			42.25 => 42.25
-			42.26 => 42.50
-			42.55 => 42.75
-			42.75 => 42.75
-			42.76 => 43
-			42.99 => 43
-			43.13 => 43.25
-	*/
-	point := CeilNumber(42.42)
 
-	assert.Equal(t, 42.50, point)
+	m := make(map[float64]float64)
+	m[42.42] = 42.50
+	m[42] = 42
+	m[42.01] = 42.25
+	m[42.24] = 42.25
+	m[42.25] = 42.25
+	m[42.26] = 42.50
+	m[42.55] = 42.75
+	m[42.75] = 42.75
+	m[42.76] = 43
+	m[42.99] = 43
+	m[43.13] = 43.25
+
+	for k,v :=range m{
+		assert.Equal(t, CeilNumber(m[k]), v)
+	}
 }
 
 func TestAlphabetSoup(t *testing.T) {
