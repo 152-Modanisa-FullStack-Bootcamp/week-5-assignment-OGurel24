@@ -1,6 +1,7 @@
 package assignment
 
 import (
+	_ "fmt"
 	"math"
 	"testing"
 
@@ -19,6 +20,20 @@ func TestAddUint32(t *testing.T) {
 			4294967290, 6 => 0, true
 			4294967290, 10 => 4, true
 	*/
+	m := make(map[float64]float64)
+	m[42.42] = 42.50
+	m[42] = 42
+	m[42.01] = 42.25
+	m[42.24] = 42.25
+	m[42.25] = 42.25
+	m[42.26] = 42.50
+	m[42.55] = 42.75
+	m[42.75] = 42.75
+	m[42.76] = 43
+	m[42.99] = 43
+	m[43.13] = 43.25
+
+
 	sum, overflow := AddUint32(math.MaxUint32, 1)
 
 	assert.Equal(t, uint32(0), sum)
@@ -40,26 +55,28 @@ func TestCeilNumber(t *testing.T) {
 	m[42.99] = 43
 	m[43.13] = 43.25
 
-	for k,v :=range m{
-		assert.Equal(t, CeilNumber(m[k]), v)
+	for k, v := range m {
+		assert.Equal(t, CeilNumber(k), v)
 	}
 }
 
 func TestAlphabetSoup(t *testing.T) {
-	/*
-		String with the letters in alphabetical order.
-		cases need to pass:
-		 	"hello" => "ehllo"
-			"" => ""
-			"h" => "h"
-			"ab" => "ab"
-			"ba" => "ab"
-			"bac" => "abc"
-			"cba" => "abc"
-	*/
-	result := AlphabetSoup("hello")
+	m := make(map[string]string)
 
-	assert.Equal(t, "ehllo", result)
+	m["hello"] = "ehllo"
+	m[""] = ""
+	m["h"] = "h"
+	m["ab"] = "ab"
+	m["ba"] = "ab"
+	m["bac"] = "abc"
+	m["cba"] = "abc"
+
+
+
+
+	for k, v := range m {
+		assert.Equal(t, AlphabetSoup(m[k]), v)
+	}
 }
 
 func TestStringMask(t *testing.T) {
