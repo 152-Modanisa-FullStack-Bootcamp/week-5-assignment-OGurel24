@@ -8,7 +8,11 @@ import (
 )
 
 func AddUint32(x, y uint32) (uint32, bool) {
-	return 0, false
+
+	if int64(x)+int64(y) > math.MaxUint32 {
+		return x+y, true
+	}
+	return x + y, false
 }
 
 func CeilNumber(f float64) float64 {

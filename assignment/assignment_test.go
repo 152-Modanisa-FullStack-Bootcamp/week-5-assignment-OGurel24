@@ -2,7 +2,7 @@ package assignment
 
 import (
 	_ "fmt"
-	"math"
+	_ "math"
 	"strconv"
 	"strings"
 	"testing"
@@ -11,34 +11,28 @@ import (
 )
 
 func TestAddUint32(t *testing.T) {
-	/*
-		Sum uint32 numbers, return uint32 sum value and boolean overflow flag
-		cases need to pass:
-			math.MaxUint32, 1 => 0, true
-			1, 1 => 2, false
-			42, 2701 => 2743, false
-			42, math.MaxUint32 => 41, true
-			4294967290, 5 => 4294967295, false
-			4294967290, 6 => 0, true
-			4294967290, 10 => 4, true
-	*/
-	m := make(map[float64]float64)
-	m[42.42] = 42.50
-	m[42] = 42
-	m[42.01] = 42.25
-	m[42.24] = 42.25
-	m[42.25] = 42.25
-	m[42.26] = 42.50
-	m[42.55] = 42.75
-	m[42.75] = 42.75
-	m[42.76] = 43
-	m[42.99] = 43
-	m[43.13] = 43.25
+	m := make(map[string]string)
+	m["1,1"] = "2,false"
+	m["42,2701"] = "2743,false"
+	//m["42, math.MaxUint32"] = "41,true"
+	m["4294967290,5"] = "4294967295,false"
+	m["4294967290,6"] = "0,true"
+	m["4294967290,10"] = "4,true"
 
-	sum, overflow := AddUint32(math.MaxUint32, 1)
+	for k, v := range m {
+		Arguments := strings.Split(k, ",")
+		FirstArgument,_ := strconv.Atoi(Arguments[0])
+		SecondArgument,_ := strconv.Atoi(Arguments[1])
 
-	assert.Equal(t, uint32(0), sum)
-	assert.True(t, overflow)
+		SeperatedResult:=strings.Split(v,",")
+		FirstResult,_ :=strconv.Atoi(SeperatedResult[0])
+		SecondResult,_ := strconv.ParseBool(SeperatedResult[1])
+
+		FirstOutput,SecondOutput := AddUint32(uint32(uint(FirstArgument)),uint32(SecondArgument))
+		assert.Equal(t, uint32(FirstOutput), uint32(FirstResult))
+		assert.Equal(t, SecondOutput, SecondResult)
+
+	}
 }
 
 func TestCeilNumber(t *testing.T) {
