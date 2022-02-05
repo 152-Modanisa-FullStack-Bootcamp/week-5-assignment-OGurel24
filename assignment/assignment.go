@@ -29,27 +29,46 @@ func CeilNumber(f float64) float64 {
 
 func AlphabetSoup(s string) string {
 	//LengthOfWord := len(s)
-	a:=strings.Split(s, "")
-	b:=strings.Join(a,",")
-	sort.Strings(strings.Split(b,""))
+	a := strings.Split(s, "")
+	b := strings.Join(a, ",")
+	sort.Strings(strings.Split(b, ""))
 	fmt.Println(b)
 
 	fmt.Println(len(a))
 	/*
-	for i := range s {
+		for i := range s {
 
-	}*/
+		}*/
 	return s
 
 	//return fmt.Sprint(LengthOfWord)
 }
 
 func StringMask(s string, n uint) string {
-	return ""
+	var NewSlice []rune
+	chars := []rune(s)
+
+	if len(s) <= 1 {
+		return "*"
+	}
+	if int(n) >= len(chars) {
+		for i := 0; i < len(chars); i++ {
+			NewSlice = append(NewSlice, '*')
+		}
+	} else {
+		for i := uint(0); i < n; i++ {
+			NewSlice = append(NewSlice, chars[i])
+		}
+		for i := int(n); i < len(chars); i++ {
+			NewSlice = append(NewSlice, '*')
+		}
+	}
+
+	return string(NewSlice)
 }
 
 func WordSplit(arr [2]string) string {
-	return ""
+	return "ggggg"
 }
 
 func VariadicSet(i ...interface{}) []interface{} {

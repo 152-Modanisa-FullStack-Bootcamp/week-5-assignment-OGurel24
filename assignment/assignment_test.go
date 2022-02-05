@@ -3,6 +3,8 @@ package assignment
 import (
 	_ "fmt"
 	"math"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -32,7 +34,6 @@ func TestAddUint32(t *testing.T) {
 	m[42.76] = 43
 	m[42.99] = 43
 	m[43.13] = 43.25
-
 
 	sum, overflow := AddUint32(math.MaxUint32, 1)
 
@@ -71,31 +72,32 @@ func TestAlphabetSoup(t *testing.T) {
 	m["bac"] = "abc"
 	m["cba"] = "abc"
 
-
-
-
 	for k, v := range m {
 		assert.Equal(t, AlphabetSoup(m[k]), v)
 	}
 }
 
 func TestStringMask(t *testing.T) {
-	/*
-		Replace after n(uint) character of string with '*' character.
-		cases need to pass:
-			"!mysecret*", 2 => "!m********"
-			"", n(any positive number) => "*"
-			"a", 1 => "*"
-			"string", 0 => "******"
-			"string", 3 => "str***"
-			"string", 5 => "strin*"
-			"string", 6 => "******"
-			"string", 7(bigger than len of "string") => "******"
-			"s*r*n*", 3 => "s*r***"
-	*/
-	result := StringMask("!mysecret*", 2)
+	m := make(map[string]string)
+	m["!mysecret*,2"] = "!m********"
+	m[",5"] = "*"
+	m["a,1"] =  "*"
+	m["string,0"] =  "******"
+	m["string,3"] =  "str***"
+	m["string,5"] =  "strin*"
+	m["string,6"] =  "******"
+	m["string,7"] =  "******"
+	m["s*r*n*,3"] =  "s*r***"
 
-	assert.Equal(t, "!m********", result)
+	for k, v := range m {
+		Arguments := strings.Split(k, ",")
+		StringArgument := Arguments[0]
+		NumberArg, _ := strconv.Atoi(Arguments[1])
+
+		result := StringMask(StringArgument, uint(NumberArg))
+		assert.Equal(t, result, v)
+	}
+
 }
 
 func TestWordSplit(t *testing.T) {
